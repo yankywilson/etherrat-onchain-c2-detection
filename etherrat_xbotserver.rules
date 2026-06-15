@@ -1,0 +1,20 @@
+# EtherRAT C2 server fingerprint — Suricata
+# Author: Yanky Wilson (github.com/yankywilson) — TLP:CLEAR
+#
+# The X-Bot-Server CORS header is the EtherRAT C2 panel's durable server-side
+# fingerprint (documented by Sysdig). It survives IP rotation, so it is a
+# stronger detector than any single C2 IP. These fire on the SERVER RESPONSE,
+# wire-visible without TLS interception because the observed panels serve the
+# fingerprint over cleartext HTTP on :3000 and :80.
+#
+# Tune SIDs to your local range before deploying.
+
+# 1) EtherRAT panel response carrying X-Bot-Server in CORS allow-headers
+alert http any any -> any any (msg:"ET-LOCAL EtherRAT C2 Panel Response (X-Bot-Server CORS header)"; flow:established,to_client; http.header_names; content:"Access-Control-Allow-Headers"; http.response_header; content:"X-Bot-Server"; nocase; classtype:command-and-control; reference:url,github.com/yankywilson; sid:9200001; rev:1;)
+
+# 2) EtherRAT implant check-in: HTTP GET to a bare IPv4 host on :3000
+#    (paired with rule 1 this is high-fidelity; alone it is a hunting lead)
+alert http any any -> any 3000 (msg:"ET-LOCAL EtherRAT C2 Beacon (HTTP GET to bare-IP host on :3000)"; flow:established,to_server; http.method; content:"GET"; http.host; pcre:"/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:3000)?$/"; classtype:command-and-control; reference:url,github.com/yankywilson; sid:9200002; rev:1;)
+
+# 3) Known live EtherRAT C2 host (point-in-time; will age out as infra rotates)
+alert ip any any -> 91.215.85.42 any (msg:"ET-LOCAL EtherRAT C2 Known Host 91.215.85.42 (PROSPERO AS200593)"; classtype:command-and-control; reference:url,github.com/yankywilson; sid:9200003; rev:1;)

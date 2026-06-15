@@ -1,0 +1,35 @@
+EtherRAT On-Chain C2 — Detection & Intelligence Pack
+Copyright (c) 2026 Yanky Wilson (github.com/yankywilson)
+
+TLP:CLEAR — Traffic Light Protocol
+
+This material (intelligence assessment, indicators of compromise, and detection
+content) is released TLP:CLEAR. Recipients may share it without restriction,
+subject to standard copyright rules and the attribution request below.
+
+PERMITTED
+- Use the indicators and detection rules for defensive purposes (detection,
+  hunting, blocking, enrichment) in any environment.
+- Redistribute, quote, and adapt the material, including in commercial security
+  products and services.
+- Modify the detection rules to fit local tooling and telemetry.
+
+REQUESTED
+- Retain attribution to the author (Yanky Wilson, github.com/yankywilson) when
+  redistributing or building upon this material.
+- Preserve the confidence levels, estimative-likelihood language, and EXCLUDED
+  findings when reproducing the assessment, so calibration is not lost in transit.
+
+ANALYTIC STANDARD
+- Confidence levels and estimative likelihoods follow ICD-203. They are the
+  author's own analytic judgments, derived from passive OSINT and on-chain
+  analysis, and may differ from vendor assessments cited herein.
+
+NO WARRANTY
+- This material is provided "as is," without warranty of any kind. Indicators
+  reflect point-in-time observations; hosting and resolution data change over
+  time. Validate before operational use. The author accepts no liability for
+  any use of this material.
+
+Detection rule syntax (Sigma, Suricata, YARA) follows the conventions of the
+respective open-source projects and is intended for use within those frameworks.

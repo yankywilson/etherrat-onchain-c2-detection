@@ -1,0 +1,11 @@
+indicator,type,reason_excluded,context
+173.249.8.102 host artifacts,host,co-tenant-unrelated-actor,"Host runs live Moroccan email-marketing/phishing kit (Laravel 'ACADEMY'); operator handle ouzougat; +212 (Morocco) phone; decoy or recycled co-tenant - separate actor, do not attribute to EtherRAT cluster"
+t.me/ouzougat,telegram,co-tenant-unrelated-actor,"Support contact for the unrelated Moroccan spam kit on 173.249.8.102"
++212638913011,phone,co-tenant-unrelated-actor,"Moroccan spam-kit operator contact; unrelated to EtherRAT"
+ouzougat@gmail.com,email,co-tenant-unrelated-actor,"Moroccan spam-kit operator contact; unrelated to EtherRAT"
+ouzougat@hotmail.com,email,co-tenant-unrelated-actor,"Moroccan spam-kit operator contact; unrelated to EtherRAT"
+ouzougat@yahoo.com,email,co-tenant-unrelated-actor,"Moroccan spam-kit operator contact; unrelated to EtherRAT"
+dailyemailmarketingsolution.com,domain,co-tenant-unrelated-actor,"Domain of the co-tenant spam kit on 173.249.8.102; not EtherRAT infrastructure"
+contaboserver.net self-signed cert,tls-cert,stock-vps-furniture,"Default Contabo VPS self-signed cert on 173.249.8.102; not tradecraft"
+proverkakkggg.space and 70+ PROSPERO domains 2023-2024,domain,prior-tenant-recycled-ip,"Japanese/Turkish payment-phishing and fake-news domains resolving to 91.215.85.42 in 2023-2024; prior tenants of recycled bulletproof IP; predate EtherRAT use; do not attribute"
+xssin.io,domain,prior-tenant-recycled-ip,"2023-24 resolution on 91.215.85.42 (PROSPERO); cybercrime-forum-adjacent but shared-host coincidence; not an actor link"

@@ -1,0 +1,48 @@
+title: EtherHiding C2 Resolution — Public Ethereum RPC Contact by Non-Browser Process
+id: b2e5d3f9-8c4e-4f7b-ad22-etherrat0002
+status: experimental
+description: |
+  Detects the EtherHiding C2-resolution step used by EtherRAT and the Tsundere
+  botnet: a non-browser process contacting public Ethereum RPC endpoints to read a
+  resolver smart contract for its current C2 address. Strong when correlated with a
+  Node.js runtime that was freshly downloaded from nodejs.org (EtherRAT pulls its own
+  runtime). On its own, RPC contact is a hunting lead, not a verdict — legitimate
+  Web3 apps also contact these endpoints.
+author: Yanky Wilson (github.com/yankywilson)
+date: 2026/06/15
+references:
+  - https://github.com/yankywilson
+  - https://cloud.google.com/blog/topics/threat-intelligence/dprk-adopts-etherhiding
+tags:
+  - attack.command_and_control
+  - attack.t1102.001
+  - attack.t1105
+logsource:
+  category: dns_query
+  product: windows
+detection:
+  rpc_endpoints:
+    QueryName:
+      - 'eth.llamarpc.com'
+      - 'rpc.flashbots.net'
+      - 'rpc.mevblocker.io'
+      - 'eth-mainnet.public.blastapi.io'
+      - 'ethereum-rpc.publicnode.com'
+      - 'rpc.payload.de'
+      - 'eth.drpc.org'
+      - 'eth.merkle.io'
+      - 'mainnet.gateway.tenderly.co'
+      - 'mainnet.eth.cloud.ava.do'
+      - '1rpc.io'
+  non_browser:
+    Image|endswith:
+      - '\node.exe'
+      - '\conhost.exe'
+      - '\mshta.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+  condition: rpc_endpoints and non_browser
+falsepositives:
+  - Legitimate Web3 / blockchain developer tooling running under Node.js
+  - Crypto wallet software
+level: medium

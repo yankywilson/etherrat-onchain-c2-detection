@@ -1,0 +1,38 @@
+title: EtherRAT C2 Beacon — Direct-IP HTTP to Port 3000
+id: a1f4c2e8-7b3d-4e6a-9c11-etherrat0001
+status: experimental
+description: |
+  Detects EtherRAT command-and-control check-in: an outbound HTTP connection to a
+  bare IPv4 address on port 3000. EtherRAT resolves its C2 address from an Ethereum
+  smart contract (EtherHiding), so the implant connects by hardcoded IP with no
+  preceding DNS resolution — a distinguishing behavioral signature. Pair with the
+  absence of a matching DNS query for the destination to reduce false positives from
+  legitimate dev servers.
+author: Yanky Wilson (github.com/yankywilson)
+date: 2026/06/15
+references:
+  - https://github.com/yankywilson
+  - https://www.sysdig.com/blog/etherrat-dprk-uses-novel-ethereum-implant-in-react2shell-attacks
+tags:
+  - attack.command_and_control
+  - attack.t1102.001
+  - attack.t1071.001
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    DestinationPort: 3000
+    Protocol: tcp
+    Initiated: 'true'
+  filter_private:
+    DestinationIp|cidr:
+      - '10.0.0.0/8'
+      - '172.16.0.0/12'
+      - '192.168.0.0/16'
+      - '127.0.0.0/8'
+  condition: selection and not filter_private
+falsepositives:
+  - Local or cloud development servers (Node.js, React, Grafana) listening on 3000
+  - CI runners contacting internal services on 3000
+level: medium
